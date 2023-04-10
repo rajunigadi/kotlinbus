@@ -1,3 +1,5 @@
+name: Build
+
 on:
   push:
     branches: develop
@@ -5,7 +7,7 @@ on:
 jobs:
   build:
     name: Generate Build
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Check out branch
@@ -46,7 +48,7 @@ jobs:
           arch: x86_64
           script: ./gradlew connectedCheck
 
-      - name: Upload test report
+      - name: Upload connected test report
         uses: actions/upload-artifact@v2
         with:
           name: instrumentation_test_report
@@ -60,10 +62,10 @@ jobs:
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.BASE64_KEYSTORE }}
-          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          keyPassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.ALIAS_PASSWORD }}
 
       - name: Get release file path
         id: release
