@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">KotlinBus</string>
+    <string name="publish">Publish</string>
+</resources>
